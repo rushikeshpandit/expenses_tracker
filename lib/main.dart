@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +27,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: AnimatedSplashScreen(
+            duration: 3000,
+            splash: SvgPicture.asset('assets/images/app_icon.svg', height: 100,
+              width: 100),
+            nextScreen: MyHomePage(title: 'Flutter Demo Home Page'),
+            splashTransition: SplashTransition.rotationTransition,
+            backgroundColor: Colors.transparent)
     );
   }
 }
