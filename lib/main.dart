@@ -1,5 +1,5 @@
-import 'package:expenses_tracker/onboarding/onboardingMain.dart';
-import 'package:expenses_tracker/onboarding/onboardingPageModal.dart';
+import 'package:expenses_tracker/onboarding/onboarding_main.dart';
+import 'package:expenses_tracker/onboarding/onboarding_page_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
+        fontFamily: 'Inter'
       ),
       home: AnimatedSplashScreen(
             duration: 3000,

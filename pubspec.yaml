@@ -20,6 +20,7 @@ dependencies:
       ref: fix_defs_order
   onboarding: ^3.1.0
   smooth_page_indicator: ^1.0.1
+  validators: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -31,3 +32,26 @@ flutter:
   assets:
   - assets/images/
   - assets/images/Onboarding/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Black.otf
+        - asset: assets/fonts/Inter-BlackItalic.otf
+        - asset: assets/fonts/Inter-Bold.otf
+        - asset: assets/fonts/Inter-BoldItalic.otf
+        - asset: assets/fonts/Inter-ExtraBold.otf
+        - asset: assets/fonts/Inter-ExtraBoldItalic.otf
+        - asset: assets/fonts/Inter-ExtraLight.otf
+        - asset: assets/fonts/Inter-ExtraLightItalic.otf
+        - asset: assets/fonts/Inter-Italic.otf
+        - asset: assets/fonts/Inter-Light.otf
+        - asset: assets/fonts/Inter-LightItalic.otf
+        - asset: assets/fonts/Inter-Medium.otf
+        - asset: assets/fonts/Inter-MediumItalic.otf
+        - asset: assets/fonts/Inter-Regular.otf
+        - asset: assets/fonts/Inter-SemiBold.otf
+        - asset: assets/fonts/Inter-SemiBoldItalic.otf
+        - asset: assets/fonts/Inter-Thin.otf
+        - asset: assets/fonts/Inter-ThinItalic.otf
+        - asset: assets/fonts/Inter-V.ttf
+          

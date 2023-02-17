@@ -1,4 +1,5 @@
-import 'package:expenses_tracker/onboarding/onboardingPageModal.dart';
+import 'package:expenses_tracker/onboarding/onboarding_page_modal.dart';
+import 'package:expenses_tracker/registration/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:expenses_tracker/utility/helper.dart';
@@ -46,7 +47,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
   Material _skipButton({void Function(int)? setIndex}) {
     return Material(
       borderRadius: defaultSkipButtonBorderRadius,
-      color: kVoiletColor,
+      color: kVioletColor,
       child: InkWell(
         borderRadius: defaultSkipButtonBorderRadius,
         onTap: () {
@@ -69,10 +70,15 @@ class _OnboardingMainState extends State<OnboardingMain> {
   Material get _signupButton {
     return Material(
       borderRadius: defaultProceedButtonBorderRadius,
-      color: kVoiletColor,
+      color: kVioletColor,
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const RegistrationPage()),
+          );
+        },
         child: const Padding(
           padding: defaultProceedButtonPadding,
           child: Text(
@@ -122,7 +128,7 @@ class _OnboardingMainState extends State<OnboardingMain> {
                             activeIndicator: const ActiveIndicator(
                                 color: kGreyColor, borderWidth: 1),
                             closedIndicator: const ClosedIndicator(
-                                color: kVoiletColor, borderWidth: 20),
+                                color: kVioletColor, borderWidth: 20),
                             indicatorDesign: IndicatorDesign.polygon(
                               polygonDesign: PolygonDesign(
                                 polygon: DesignType.polygon_circle,
