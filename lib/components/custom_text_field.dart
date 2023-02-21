@@ -31,7 +31,8 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obsureText,
       validator: validator,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.grey.shade400,
