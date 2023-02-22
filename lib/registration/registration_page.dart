@@ -1,4 +1,5 @@
 import 'package:expenses_tracker/components/custom_text_field.dart';
+import 'package:expenses_tracker/registration/authentication_services.dart';
 import 'package:expenses_tracker/registration/login_page.dart';
 import 'package:expenses_tracker/utility/helper.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,12 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   bool _isHidden = true;
   bool? _isTermsAccepted = false;
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  AuthenticationServices services = AuthenticationServices();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +113,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   MaterialButton(
                     minWidth: deviceWidth(context) * 0.9,
                     height: 60,
-                    onPressed: () {
+                    onPressed: () async {
                       onSubmitData();
                     },
                     color: kVioletColor,
@@ -174,14 +178,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   String? _userNameValidator(String? name) {
-    if (!isAlpha(name!)) {
+    if (!isAlpha(name!) && name.length < 3) {
       return 'Enter a valid name';
     }
     return null;
   }
 
   String? _passwordValidator(String? pwd) {
-    if (!isAlphanumeric(pwd!)) {
+    if (!isAlphanumeric(pwd!) && pwd.length < 5) {
       return 'Enter a valid password';
     }
     return null;
@@ -200,7 +204,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
     });
   }
 
-  void onSubmitData() {
-    String userName = _nameController.text;
+  void onSubmitData() async {
+    String username = _nameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    print('username: ${username} \n email: ${email} \n password: ${password}');
+
+    var registrationData = await services.signUp(username, email, password);
+    print(registrationData);
+
+    // updateUI(weatherData);
   }
 }
