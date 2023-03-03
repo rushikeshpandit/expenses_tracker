@@ -3,7 +3,6 @@ import 'package:expenses_tracker/registration/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:expenses_tracker/utility/helper.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingMain extends StatefulWidget {
   @override

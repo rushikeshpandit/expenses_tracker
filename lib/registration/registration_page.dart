@@ -1,4 +1,5 @@
 import 'package:expenses_tracker/components/custom_text_field.dart';
+import 'package:expenses_tracker/components/dialog_utils.dart';
 import 'package:expenses_tracker/registration/authentication_services.dart';
 import 'package:expenses_tracker/registration/login_page.dart';
 import 'package:expenses_tracker/utility/helper.dart';
@@ -178,17 +179,34 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   String? _userNameValidator(String? name) {
-    if (!isAlpha(name!) && name.length < 3) {
+    if (!isAlpha(name!) && name.length <= 3) {
       return 'Enter a valid name';
     }
     return null;
   }
 
   String? _passwordValidator(String? pwd) {
-    if (!isAlphanumeric(pwd!) && pwd.length < 5) {
-      return 'Enter a valid password';
+    /**
+     * 
+     *  r'^
+     *     (?=.*[A-Z])       // should contain at least one upper case
+     *     (?=.*[a-z])       // should contain at least one lower case
+     *     (?=.*?[0-9])      // should contain at least one digit
+     *     (?=.*?[!@#\$&*~]) // should contain at least one Special character
+     *     .{8,}             // Must be at least 8 characters in length  
+     *   $
+     */
+    RegExp regex =
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+    if (pwd!.isEmpty) {
+      return 'Please enter password';
+    } else {
+      if (!regex.hasMatch(pwd)) {
+        return 'Enter valid password';
+      } else {
+        return null;
+      }
     }
-    return null;
   }
 
   String? _emailValidator(String? email) {
@@ -208,9 +226,45 @@ class _RegistrationPageState extends State<RegistrationPage> {
     String username = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
-    print('username: ${username} \n email: ${email} \n password: ${password}');
+
+    if (!isAlpha(username) && username.length <= 3) {
+      DialogUtils.displayDialogOKCallBack(
+          context,
+          'Invalid name',
+          'Enter a valid name',
+          () => Navigator.of(context, rootNavigator: true).pop());
+      return;
+    }
+
+    if (!isEmail(email)) {
+      DialogUtils.displayDialogOKCallBack(
+          context,
+          'Invalid email',
+          'Enter a valid email',
+          () => Navigator.of(context, rootNavigator: true).pop());
+      return;
+    }
+
+    if (!isAlphanumeric(password) && password.length <= 5) {
+      DialogUtils.displayDialogOKCallBack(
+          context,
+          'Invalid password',
+          'Enter a valid password',
+          () => Navigator.of(context, rootNavigator: true).pop());
+      return;
+    }
+
+    if (!_isTermsAccepted!) {
+      DialogUtils.displayDialogOKCallBack(
+          context,
+          'Terms',
+          'You must agree to the terms and conditions to use this application',
+          () => Navigator.of(context, rootNavigator: true).pop());
+      return;
+    }
 
     var registrationData = await services.signUp(username, email, password);
+    // var returnObject = registrationData["returnObject"];
     print(registrationData);
 
     // updateUI(weatherData);
