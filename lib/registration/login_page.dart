@@ -1,3 +1,4 @@
+import 'package:expenses_tracker/utility/storager_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:expenses_tracker/utility/helper.dart';
 import 'package:expenses_tracker/components/custom_text_field.dart';
@@ -207,7 +208,11 @@ class _LoginPageState extends State<LoginPage> {
     var registrationData = await services.signIn(username, password);
     // var returnObject = registrationData["returnObject"];
     print(registrationData);
-
+    String token = registrationData['token'];
+    StorageHelper().setToken(token);
+    String fetchToken = await StorageHelper().getToken();
+    DialogUtils.displayDialogOKCallBack(context, 'Token', fetchToken,
+        () => Navigator.of(context, rootNavigator: true).pop());
     // updateUI(weatherData);
   }
 }

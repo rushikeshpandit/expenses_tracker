@@ -25,7 +25,6 @@ class User {
       this.accounts,
       this.expensesType,
       this.roles,
-      this.authorities,
       this.id,
       this.enabled,
       this.userName,

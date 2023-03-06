@@ -1,79 +1,34 @@
+import 'dart:ffi';
+
 import 'package:expenses_tracker/onboarding/onboarding_main.dart';
 import 'package:expenses_tracker/onboarding/onboarding_page_modal.dart';
+import 'package:expenses_tracker/utility/storager_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
-void main() {
-  runApp(const MyApp());
+void main() async {
+  StorageHelper().initDatabase();
+  String token = await StorageHelper().getToken();
+  runApp(MyApp(isUserLoggedIn: !token.isEmpty));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isUserLoggedIn;
+  const MyApp({super.key, required this.isUserLoggedIn});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        fontFamily: 'Inter'
-      ),
-      home: AnimatedSplashScreen(
+        title: 'Flutter Demo',
+        theme: ThemeData(primarySwatch: Colors.deepPurple, fontFamily: 'Inter'),
+        home: AnimatedSplashScreen(
             duration: 3000,
-            splash: SvgPicture.asset('assets/images/app_icon.svg', height: 100,
-              width: 100),
+            splash: SvgPicture.asset('assets/images/app_icon.svg',
+                height: 100, width: 100),
             nextScreen: OnboardingMain(),
             splashTransition: SplashTransition.rotationTransition,
-            backgroundColor: Colors.transparent)
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
+            backgroundColor: Colors.transparent));
   }
 }
